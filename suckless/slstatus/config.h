@@ -72,8 +72,8 @@ static const struct arg args[] = {
 	{ cpu_perc,		"[CPU %s%] ", 		NULL },
 	{ ram_perc, 	"[RAM %s%] ", 		NULL },
    	/* If you have two sound cards (like me PCH/HDMI) then you may need to use /dev/mixer1 instead of /dev/mixer to get vol_perc working*/
-	{ run_command,  "[VOL %s] ",         "amixer -c 1 | grep 'Left:' | awk -F'[][]' '{ print $2 }'"},
-	// { vol_perc, 	"[VOL %s%] ", 		"/dev/mixer1" },
+	{ run_command,  "[VOL %s%] ",         "sh -c \"pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -n 1\""},
+	// { vol_perc, 	"[VOL %s%] ", 		"/dev/mixer" },
    	/* Displays battery's capacity, you need to specify the battery folder's name listed in /sys/class/power_supply,
 	  for me it's BAT0 and it'll automatically read the capacity file */
 	{ battery_perc, "[BAT %s%] ", 		"BAT0" },
@@ -82,3 +82,12 @@ static const struct arg args[] = {
 	// { ipv4, 		"[WLAN IP %s] ",	"wlp0s20f3" },
 	{ datetime, 	"[%s]", 			"%F %r" 	},
 };
+
+// static const struct arg args[] = {
+// 	/* function format          argument */
+// 	{ cpu_perc,		"[⚡ %s%%] ", 		NULL },
+// 	{ ram_perc, 	"[💻 %s%%] ", 		NULL },
+// 	{ run_command,  "[🔊 %s%%] ",         "sh -c \"pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '\\d+(?=%)' | head -n 1\""},
+// 	{ battery_perc, "[🔋 %s%%] ", 		"BAT0" },
+// 	{ datetime, 	"[%s]", 			"%F %r" 	},
+// };

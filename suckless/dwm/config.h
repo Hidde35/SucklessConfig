@@ -15,10 +15,12 @@ static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
 static const char col_gray4[]       = "#eeeeee";
 static const char col_cyan[]        = "#005577";
+static const char col_apricot[]     = "#ed820e";
+static const char col_merigold[]    = "#fcae1e";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeNorm] = { col_gray3, col_gray1, col_apricot },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_merigold  },
 };
 
 /* tagging */
@@ -61,12 +63,13 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "konsole", NULL };
+// static const char *termcmd[]  = { "st", NULL }; TODO: customize st terminal
 
 /* audio control */
-static const char *volumeup[] = {"amixer", "-c", "1", "-q", "set", "Master", "2%+", NULL};
-static const char *volumedown[] = {"amixer", "-c", "1", "-q", "set", "Master", "2%-", NULL};
-static const char *volumetoggle[] = {"amixer", "-c", "1", "-q", "set", "Master", "toggle", NULL};
+static const char *upvol[]      = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "+5%", NULL };
+static const char *downvol[]    = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
+static const char *mutevol[]    = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -104,9 +107,9 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 	/* my added keys */
-	{ MODKEY,                       XK_F11,    spawn, 		   {.v = volumedown } },
-	{ MODKEY,                       XK_F9,     spawn, 		   {.v = volumetoggle } },
-	{ MODKEY,                       XK_F12,    spawn, 		   {.v = volumeup   } },
+	{ MODKEY,                       XK_F11,    spawn, 		   {.v = downvol } },
+	{ MODKEY,                       XK_F9,     spawn, 		   {.v = mutevol } },
+	{ MODKEY,                       XK_F12,    spawn, 		   {.v = upvol   } },
 };
 
 /* button definitions */
