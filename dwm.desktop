@@ -1,0 +1,7 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Dwm
+Comment=the dynamic window manager
+Exec=/home/hroo/.xinitrc
+Icon=dwm
+Type=XSession
