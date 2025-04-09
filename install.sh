@@ -25,9 +25,6 @@ for folder in "${folders[@]}"; do
     fi
 done
 
-# Copy dwm.desktop to /usr/share/xsessions
-sudo cp dwm.desktop /usr/share/xsessions/
-echo "dwm.desktop has been copied to /usr/share/xsessions."
 
 # Replace 'user' with the actual username in dwm.desktop
 if [ -n "$SUDO_USER" ]; then
@@ -36,6 +33,10 @@ if [ -n "$SUDO_USER" ]; then
 else
     echo "SUDO_USER is not set. Skipping username replacement."
 fi
+
+# Copy dwm.desktop to /usr/share/xsessions
+sudo cp dwm.desktop /usr/share/xsessions/
+echo "dwm.desktop has been copied to /usr/share/xsessions."
 
 # Make .xinitrc executable and copy to ~/
 if [ -f ".xinitrc" ]; then
