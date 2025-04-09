@@ -6,6 +6,6 @@ feh --bg-fill "$(find ~/Pictures/wallpapers -type f | shuf -n 1)"
 # Launch slstatus in the background
 slstatus &
 # Add a small delay to ensure everything is set up
-sleep 2p
+sleep 2
 # Start dwm
 exec dwm
