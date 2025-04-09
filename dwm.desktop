@@ -2,6 +2,6 @@
 Encoding=UTF-8
 Name=Dwm
 Comment=the dynamic window manager
-Exec=/home/hidde/.xinitrc
+Exec=/home/hroo/.xinitrc
 Icon=dwm
 Type=XSession
