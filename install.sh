@@ -29,6 +29,14 @@ done
 sudo cp dwm.desktop /usr/share/xsessions/
 echo "dwm.desktop has been copied to /usr/share/xsessions."
 
+# Replace 'user' with the actual username in dwm.desktop
+if [ -n "$SUDO_USER" ]; then
+    username=$(echo "$SUDO_USER" | cut -d'@' -f1)
+    sed -i "s|/home/user|/home/$username|g" dwm.desktop
+else
+    echo "SUDO_USER is not set. Skipping username replacement."
+fi
+
 # Make .xinitrc executable and copy to ~/
 if [ -f ".xinitrc" ]; then
     chmod +x .xinitrc
@@ -37,4 +45,3 @@ if [ -f ".xinitrc" ]; then
 else
     echo ".xinitrc does not exist, skipping."
 fi
-
