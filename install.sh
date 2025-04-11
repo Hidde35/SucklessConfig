@@ -40,8 +40,8 @@ echo "dwm.desktop has been copied to /usr/share/xsessions."
 
 # Make .xinitrc executable and copy to ~/
 if [ -f ".xinitrc" ]; then
-    chmod +x .xinitrc
     cp .xinitrc ~/
+    chmod +x ~/.xinitrc
     echo ".xinitrc has been made executable and copied to ~/."
 else
     echo ".xinitrc does not exist, skipping."
