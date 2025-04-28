@@ -25,13 +25,12 @@ for folder in "${folders[@]}"; do
     fi
 done
 
-
-# Replace 'user' with the actual username in dwm.desktop
-if [ -n "$SUDO_USER" ]; then
-    username=$(echo "$SUDO_USER" | cut -d'@' -f1)
+# # Replace 'user' with the actual username in dwm.desktop
+if [ -n "$USER" ]; then
+    username=$(echo "$USER" | tr '[:upper:]' '[:lower:]' | cut -d'@' -f1)
     sed -i "s|/home/user|/home/$username|g" dwm.desktop
 else
-    echo "SUDO_USER is not set. Skipping username replacement."
+    echo "USER is not set. Skipping username replacement."
 fi
 
 # Copy dwm.desktop to /usr/share/xsessions
