@@ -1,16 +1,46 @@
 #!/bin/bash
-# Install required package
-sudo apt update && sudo apt install -y feh
-# Copy wallpapers folder to ~/Pictures
-if [ -d "other/wallpapers" ]; then
-    cp -r other/wallpapers ~/Pictures/
-    echo "Wallpapers have been copied to ~/Pictures."
-else
-    echo "The folder other/wallpapers does not exist, skipping."
+
+# Define package manager configurations
+declare -A pkg_managers=(
+    ["zypper"]="sudo zypper install -y"
+    ["apt"]="sudo apt install -y"
+)
+
+declare -A update_commands=(
+    ["zypper"]="sudo zypper refresh"
+    ["apt"]="sudo apt update"
+)
+
+declare -A base_packages=(
+    ["zypper"]="feh st"
+    ["apt"]="feh"
+)
+
+# Detect package manager
+for pkg_manager in "${!pkg_managers[@]}"; do
+    if command -v "$pkg_manager" >/dev/null 2>&1; then
+        INSTALL_CMD="${pkg_managers[$pkg_manager]}"
+        UPDATE_CMD="${update_commands[$pkg_manager]}"
+        BASE_PKGS="${base_packages[$pkg_manager]}"
+        break
+    fi
+done
+
+if [ -z "$INSTALL_CMD" ]; then
+    echo "No supported package manager found. Please install packages manually."
+    exit 1
 fi
 
-# List of folders to process
-folders=("dmenu" "dwm" "slstatus" "st")
+# Update and install base packages
+$UPDATE_CMD
+$INSTALL_CMD $BASE_PKGS
+
+# Determine which folders to process based on package manager
+if [ "$pkg_manager" = "zypper" ]; then
+    folders=("dmenu" "dwm" "slstatus")
+else
+    folders=("dmenu" "dwm" "slstatus" "st")
+fi
 
 # Loop through each folder and run the commands
 for folder in "${folders[@]}"; do
@@ -25,7 +55,7 @@ for folder in "${folders[@]}"; do
     fi
 done
 
-# # Replace 'user' with the actual username in dwm.desktop
+# Replace 'user' with the actual username in dwm.desktop
 if [ -n "$USER" ]; then
     username=$(echo "$USER" | tr '[:upper:]' '[:lower:]' | cut -d'@' -f1)
     sed -i "s|/home/user|/home/$username|g" dwm.desktop
