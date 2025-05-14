@@ -71,6 +71,10 @@ static const char *upvol[]      = { "/usr/bin/pactl", "set-sink-volume", "@DEFAU
 static const char *downvol[]    = { "/usr/bin/pactl", "set-sink-volume", "@DEFAULT_SINK@", "-5%", NULL };
 static const char *mutevol[]    = { "/usr/bin/pactl", "set-sink-mute",   "@DEFAULT_SINK@", "toggle", NULL };
 
+/* To use light add this to the constant definition section. Thanks Hritik14. */
+static const char *light_up[]   = { "sudo", "-n", "/usr/bin/light",   "-A", "5", NULL };
+static const char *light_down[] = { "sudo", "-n", "/usr/bin/light",   "-U", "5", NULL };
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -110,6 +114,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_F11,    spawn, 		   {.v = downvol } },
 	{ MODKEY,                       XK_F9,     spawn, 		   {.v = mutevol } },
 	{ MODKEY,                       XK_F12,    spawn, 		   {.v = upvol   } },
+	{ 0, 		   XF86XK_MonBrightnessDown,   spawn,	       {.v = light_down} },
+	{ 0, 		   XF86XK_MonBrightnessUp,     spawn,	       {.v = light_up} },
 };
 
 /* button definitions */
