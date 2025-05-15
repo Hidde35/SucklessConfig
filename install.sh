@@ -1,6 +1,12 @@
 #!/bin/bash
+
+set -e
+
 # Install required package
-sudo apt update && sudo apt install -y feh
+sudo apt update 
+sudo apt install -y feh
+sudo apt install -y light
+
 # Copy wallpapers folder to ~/Pictures
 if [ -d "other/wallpapers" ]; then
     cp -r other/wallpapers ~/Pictures/

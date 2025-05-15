@@ -1,2 +1,4 @@
 dwm.desktop
 .xinitrc
+dwm/dwm
+dwm/dwm.o
