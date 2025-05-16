@@ -47,6 +47,11 @@ $INSTALL_CMD $BASE_PKGS
 if [ "$pkg_manager" = "zypper" ]; then
     folders=("dmenu" "dwm" "slstatus")
 else
+    # Install required package
+    set -e
+    sudo apt update 
+    sudo apt install -y feh
+    sudo apt install -y light
     folders=("dmenu" "dwm" "slstatus" "st")
 fi
 
