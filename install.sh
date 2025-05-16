@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Copy wallpapers folder to ~/Pictures
+if [ -d "other/wallpapers" ]; then
+    cp -r other/wallpapers ~/Pictures/
+    echo "Wallpapers have been copied to ~/Pictures."
+else
+    echo "The folder other/wallpapers does not exist, skipping."
+
 # Define package manager configurations
 declare -A pkg_managers=(
     ["zypper"]="sudo zypper install -y"
@@ -48,6 +55,8 @@ for folder in "${folders[@]}"; do
         echo "Entering folder: $folder"
         cd "$folder"
         sudo make clean install
+        # Clean up again after installation to remove any generated object files
+        sudo make clean
         cd ..
         echo "Finished processing folder: $folder"
     else
