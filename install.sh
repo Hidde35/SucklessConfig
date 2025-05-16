@@ -6,6 +6,7 @@ if [ -d "other/wallpapers" ]; then
     echo "Wallpapers have been copied to ~/Pictures."
 else
     echo "The folder other/wallpapers does not exist, skipping."
+fi
 
 # Define package manager configurations
 declare -A pkg_managers=(
