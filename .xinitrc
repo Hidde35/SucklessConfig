@@ -1,16 +1,5 @@
 #!/bin/sh
 
-# Check if xrandr is installed
-if ! command -v xrandr &> /dev/null; then
-    echo "xrandr could not be found. Please install it."
-    exit 1
-fi
-# Check if feh is installed
-if ! command -v feh &> /dev/null; then
-    echo "feh could not be found. Please install it."
-    exit 1
-fi
-
 if xrandr | grep -q "DP-2-1 connected" && xrandr | grep -q "DP-2-2 connected"; then
     if ! xrandr | grep -q "DP-2-3 connected"; then
         # DP-2-1 and DP-2-2 connected, but DP-2-3 not present
